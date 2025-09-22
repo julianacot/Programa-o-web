@@ -4,7 +4,7 @@ import Parse from "./parse";
 export async function saveFavorite(movie) {
   const Favorite = Parse.Object.extend("Favorite");
   try {
-    // Verifica se já existe
+    
     const query = new Parse.Query(Favorite);
     query.equalTo("user", Parse.User.current());
     query.equalTo("movieId", movie.id);
@@ -49,3 +49,22 @@ export async function getFavorites() {
   }
 }
 
+export async function removeFavorite(movieId) {
+  const Favorite = Parse.Object.extend("Favorite");
+  const query = new Parse.Query(Favorite);
+
+  query.equalTo("user", Parse.User.current());
+  query.equalTo("movieId", movieId);
+
+  try {
+    const result = await query.first();
+    if (result) {
+      await result.destroy();
+      return true;
+    }
+    return false; // não achou favorito para remover
+  } catch (error) {
+    console.error("Erro ao remover favorito:", error);
+    return false;
+  }
+}
