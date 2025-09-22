@@ -1,9 +1,18 @@
 "use client";
-import { useState } from "react";
-import { saveFavorite } from "../lib/favoritos";
+import { useState, useEffect } from "react";
+import { saveFavorite, getFavorites } from "../lib/favoritos";
 
 export default function SaveButton({ movie }) {
   const [saved, setSaved] = useState(false);
+
+  useEffect(() => {
+    async function checkIfSaved() {
+      const favoritos = await getFavorites();
+      const jaExiste = favoritos.some(fav => fav.id === movie.id);
+      if (jaExiste) setSaved(true);
+    }
+    checkIfSaved();
+  }, [movie.id]);
 
   async function handleSave() {
     const ok = await saveFavorite(movie);

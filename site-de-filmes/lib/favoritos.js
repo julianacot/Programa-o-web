@@ -3,6 +3,17 @@ import Parse from "./parse";
 
 export async function saveFavorite(movie) {
   const Favorite = Parse.Object.extend("Favorite");
+  try {
+    // Verifica se já existe
+    const query = new Parse.Query(Favorite);
+    query.equalTo("user", Parse.User.current());
+    query.equalTo("movieId", movie.id);
+    const existing = await query.first();
+
+    if (existing) {
+      console.log("Filme já está nos favoritos");
+      return false;
+    }
   const favorite = new Favorite();
 
   favorite.set("user", Parse.User.current());
@@ -10,7 +21,7 @@ export async function saveFavorite(movie) {
   favorite.set("title", movie.title);
   favorite.set("posterPath", movie.poster_path);
 
-  try {
+  
     await favorite.save();
     return true;
   } catch (error) {
