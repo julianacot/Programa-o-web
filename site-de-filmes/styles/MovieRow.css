@@ -1,0 +1,12 @@
+.row {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 10px 0;
+  -ms-overflow-style: none;  /* IE e Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+.row::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
