@@ -9,14 +9,13 @@ export default async function Home() {
 
   const genresWithMovies = await Promise.all(
     genres.map(async (genre) => {
-      const movies = await getMoviesByGenre(genre.id, 1);
+      const movies = await getMoviesByGenre(genre.id, 4);
       return { ...genre, movies };
     })
   );
 
   const heroMovie = topRated[0];
 
-  // 🎨 estilo único para reaproveitar
   const sectionStyle = {
     border: "2px solid #ff4d4d",
     borderRadius: "20px",
@@ -30,19 +29,19 @@ export default async function Home() {
       {heroMovie && <HeroMovie movie={heroMovie} />}
 
       <div style={{ padding: "20px" }}>
-        {/* 🎬 Melhores Filmes */}
+        {}
         <div style={sectionStyle}>
-          <h2 style={{ marginBottom: "10px" }}>🎬 Melhores Filmes</h2>
+          <h2 style={{ marginBottom: "10px" }}> Melhores Filmes</h2>
           <MovieRow movies={topRated} />
         </div>
 
-        {/* 🔥 Filmes Populares */}
+        {}
         <div style={sectionStyle}>
-          <h2 style={{ marginBottom: "10px" }}>🔥 Filmes Populares</h2>
+          <h2 style={{ marginBottom: "10px" }}> Filmes Populares</h2>
           <MovieRow movies={popular} />
         </div>
 
-        {/* 🏷️ Filmes por gênero */}
+        {}
         {genresWithMovies.map(
           (genre) =>
             genre.movies.length > 0 && (

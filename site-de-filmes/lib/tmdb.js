@@ -1,10 +1,8 @@
 const API_KEY = "3541c74b87a9455552fa5ae4c33578bd";
 const BASE_URL = "https://api.themoviedb.org/3";
 
-// --------------------
-// Buscar filmes por categoria (popular, top_rated, upcoming, now_playing)
-// --------------------
-export async function getMoviesByCategory(category, pages = 1) {
+
+export async function getMoviesByCategory(category, pages = 4) {
   let movies = [];
 
   for (let i = 1; i <= pages; i++) {
@@ -22,7 +20,7 @@ export async function getMoviesByCategory(category, pages = 1) {
 // --------------------
 // Buscar filmes por gênero (ex: 28 = Ação, 35 = Comédia)
 // --------------------
-export async function getMoviesByGenre(genreId, pages = 1) {
+export async function getMoviesByGenre(genreId, pages = 4) {
   let movies = [];
 
   for (let i = 1; i <= pages; i++) {
@@ -102,4 +100,19 @@ export async function getMovieWatchProviders(id) {
   return data.results?.BR || null;
  };
 
+export async function searchMovies(query, page = 4) {
+  if (!query) return [];
 
+  const res = await fetch(
+    `${BASE_URL}/search/movie?api_key=${API_KEY}&language=pt-BR&query=${encodeURIComponent(
+      query
+    )}&page=${page}`
+  );
+
+  if (!res.ok) {
+    throw new Error("Erro ao buscar filmes");
+  }
+
+  const data = await res.json();
+  return data.results; // array de filmes encontrados
+}

@@ -30,7 +30,7 @@ export default async function MovieDetails({ params }) {
           <div className={styles.providers}>
             <h3>Onde assistir:</h3>
             <div className={styles.providerList}>
-              {/* exibe provedores de streaming */}
+              {}
               {providers.flatrate?.map((provider) => (
                 <div key={provider.provider_id} className={styles.provider}>
                   <img
@@ -48,7 +48,7 @@ export default async function MovieDetails({ params }) {
           <p>Informação de onde assistir não disponível.</p>
         )}
 
-        {/* Trailer */}
+        {}
         {movie.trailerKey ? (
           <div className={styles.trailer}>
             <h3>Trailer Oficial</h3>

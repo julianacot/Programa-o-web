@@ -2,14 +2,17 @@
 import { useState, useEffect } from "react";
 import Parse from "../lib/parse";
 import Link from "next/link";
-import styles from "../styles/Navbar.module.css";
-
+import { useRouter } from "next/navigation";
+import { FaSearch } from "react-icons/fa"; 
 
 export default function Navbar() {
   const [user, setUser] = useState(null);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [isRegister, setIsRegister] = useState(false); // alterna login / registrar
+  const [isRegister, setIsRegister] = useState(false);
+
+  const [searchTerm, setSearchTerm] = useState(""); // estado da busca
+  const router = useRouter();
 
   useEffect(() => {
     setUser(Parse.User.current());
@@ -49,6 +52,13 @@ export default function Navbar() {
     setUser(null);
   }
 
+  function handleSearch(e) {
+    e.preventDefault();
+    if (!searchTerm.trim()) return;
+    router.push(`/pesquisa?query=${encodeURIComponent(searchTerm)}`);
+    setSearchTerm("");
+  }
+
   return (
     <nav
       style={{
@@ -60,7 +70,7 @@ export default function Navbar() {
         color: "#fff",
       }}
     >
-      {/* Links principais */}
+      {/* Links */}
       <div style={{ display: "flex", gap: "15px" }}>
         <Link href="/" style={{ color: "white", textDecoration: "none" }}>
           Home
@@ -70,7 +80,42 @@ export default function Navbar() {
         </Link>
       </div>
 
-      {/* Login / Registro */}
+      {/* Busca */}
+      <form
+        onSubmit={handleSearch}
+        style={{ display: "flex", alignItems: "center", gap: "5px" }}
+      >
+        <input
+          type="text"
+          placeholder="Buscar filmes..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          style={{
+            padding: "6px 10px",
+            borderRadius: "20px",
+            border: "1px solid #444",
+            background: "#222",
+            color: "#fff",
+          }}
+        />
+        <button
+          type="submit"
+          style={{
+            background: "transparent",
+            border: "none",
+            cursor: "pointer",
+            color: "white",
+            fontSize: "18px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <FaSearch />
+        </button>
+      </form>
+
+      {}
       <div>
         {user ? (
           <>
