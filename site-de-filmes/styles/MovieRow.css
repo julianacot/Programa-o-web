@@ -1,12 +1,36 @@
+.movieRowWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
 .row {
   display: flex;
-  gap: 12px;
   overflow-x: auto;
-  padding: 10px 0;
-  -ms-overflow-style: none;  /* IE e Edge */
-  scrollbar-width: none;     /* Firefox */
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
 }
 
 .row::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none; /* Chrome */
+}
+
+.scrollBtn {
+  position: absolute;
+  top: 40%;
+  z-index: 10;
+  background: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+
+.scrollBtn.left {
+  left: 0;
+}
+
+.scrollBtn.right {
+  right: 0;
 }
