@@ -70,8 +70,11 @@ export default function Navbar() {
         color: "#fff",
       }}
     >
-      {/* Links */}
-      <div style={{ display: "flex", gap: "15px" }}>
+      {/* Nome + Links */}
+      <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+        <h1 style={{ margin: 0, fontSize: "30px", fontWeight: "bold", color: "#e50914" }}>
+          FilmeFlix
+        </h1>
         <Link href="/" style={{ color: "white", textDecoration: "none" }}>
           Home
         </Link>
@@ -115,7 +118,7 @@ export default function Navbar() {
         </button>
       </form>
 
-      {}
+      {/* Usuário */}
       <div>
         {user ? (
           <>
