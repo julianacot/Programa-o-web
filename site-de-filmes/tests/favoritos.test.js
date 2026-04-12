@@ -1,4 +1,4 @@
-jest.mock('./parse', () => {
+jest.mock('../lib/parse', () => {
   const mQuery = {
     equalTo: jest.fn().mockReturnThis(),
     first: jest.fn(),
@@ -23,8 +23,8 @@ jest.mock('./parse', () => {
   };
 });
 
-const { saveFavorite } = require('./favoritos');
-const Parse = require('./parse');
+const { saveFavorite } = require('../lib/favoritos');
+const Parse = require('../lib/parse');
 
 describe('saveFavorite', () => {
 
@@ -58,7 +58,7 @@ describe('saveFavorite', () => {
 
 });
 
-const { getFavorites } = require('./favoritos');
+const { getFavorites } = require('../lib/favoritos');
 
 describe('getFavorites', () => {
 
@@ -73,7 +73,7 @@ describe('getFavorites', () => {
       }
     ];
 
-    const Parse = require('./parse');
+    const Parse = require('../lib/parse');
     Parse.Query().find.mockResolvedValue(mockData);
 
     const result = await getFavorites();
@@ -83,7 +83,7 @@ describe('getFavorites', () => {
   });
 
   test('deve retornar lista vazia em erro', async () => {
-    const Parse = require('./parse');
+    const Parse = require('../lib/parse');
     Parse.Query().find.mockRejectedValue(new Error());
 
     const result = await getFavorites();
@@ -93,14 +93,14 @@ describe('getFavorites', () => {
 
 });
 
-const { removeFavorite } = require('./favoritos');
+const { removeFavorite } = require('../lib/favoritos');
 
 describe('removeFavorite', () => {
 
   test('deve remover favorito existente', async () => {
     const mockDestroy = jest.fn();
 
-    const Parse = require('./parse');
+    const Parse = require('../lib/parse');
     Parse.Query().first.mockResolvedValue({
       destroy: mockDestroy
     });
@@ -112,7 +112,7 @@ describe('removeFavorite', () => {
   });
 
   test('deve retornar false se não encontrar', async () => {
-    const Parse = require('./parse');
+    const Parse = require('../lib/parse');
     Parse.Query().first.mockResolvedValue(null);
 
     const result = await removeFavorite(1);
@@ -121,7 +121,7 @@ describe('removeFavorite', () => {
   });
 
   test('deve retornar false em erro', async () => {
-    const Parse = require('./parse');
+    const Parse = require('../lib/parse');
     Parse.Query().first.mockRejectedValue(new Error());
 
     const result = await removeFavorite(1);
